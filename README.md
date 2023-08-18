@@ -4,7 +4,7 @@ It's just a simple weather app that uses openweather's api to show the live temp
 
 
 # Demo
-<img src="./wether-app-demo.png" width="100%">
+<img src="./weather-app-demo.png" width="100%">
 
 
 
