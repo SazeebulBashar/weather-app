@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5" id="form">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="locinput" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-danger" id="searchBtn">Search</button>
+                </div>
+            </div>
+            
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="location">Dhaka</h1>
+            <h3><span id="temp">0</span>&deg;C</h3>
+            <h1 class="lead">Clouds</h1>
+        </div>
+    </div>
+
+
+    <script>
+        //default city 
+        chkW("Dhaka");
+    
+
+        let capitalizedWord ="";
+
+        //onClicking on button
+        document.getElementById("searchBtn").addEventListener("click", function(e){
+            const location = document.getElementById("locinput").value;
+            
+            const firstLetter = location.charAt(0);
+            const firstLetterCap = firstLetter.toUpperCase();
+            const remainingLetters = location.slice(1);
+            capitalizedWord = firstLetterCap + remainingLetters;
+            
+            chkW(capitalizedWord);
+
+        });
+
+        //on clicking enter key 
+        document.getElementById("form").addEventListener("submit", function(e){
+        e.preventDefault();
+        const location = document.getElementById("locinput").value;
+        const firstLetter = location.charAt(0);
+        const firstLetterCap = firstLetter.toUpperCase();
+        const remainingLetters = location.slice(1);
+        capitalizedWord = firstLetterCap + remainingLetters;
+        
+        chkW(capitalizedWord);
+
+        });
+
+    
+
+        //fetching data from openweather api
+        function chkW(loca){
+            fetch("https://api.openweathermap.org/data/2.5/weather?q="+loca+"&appid=d4138091c7423e9c4c243f4c935e06e5&units=metric")
+            .then(res=> res.json())
+            .then(data =>{
+            console.log(data.main.temp);
+            document.getElementById("temp").innerHTML = data.main.temp;
+            
+            document.getElementById("location").innerHTML = loca;
+        })
+        }
+
+        
+
+    </script>
+</body>
+
+</html>
